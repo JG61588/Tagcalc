@@ -1,0 +1,6 @@
+{
+  "name": "TagCalc — Craft-Fair & Flea-Market Price Tag Calculator",
+  "description": "Calculate craft-fair and flea-market item prices with booth fee splits, card processing fees, and target profit margins, then print cut-ready 2x3 inch price tag sheets.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

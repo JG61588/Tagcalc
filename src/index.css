@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Public Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    scroll-behavior: smooth;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+  }
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Print-ready 2" x 3" Price Tag Sheet (3 across on 8.5" x 11" US Letter) */
+@page {
+  size: letter;
+  margin: 0.4in;
+}
+
+@media print {
+  html,
+  body {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  #print-sheet-root {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+  }
+
+  .print-tag-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 2in) !important;
+    gap: 0.14in !important;
+    justify-content: center !important;
+    width: 100% !important;
+  }
+
+  .price-tag-cell {
+    width: 2in !important;
+    height: 3in !important;
+    border: 1pt dashed #64748b !important;
+    background: #ffffff !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  .print-free-footer {
+    display: block !important;
+    margin-top: 0.25in !important;
+    text-align: center !important;
+    font-size: 9pt !important;
+    color: #475569 !important;
+  }
+}

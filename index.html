@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TagCalc — Craft-Fair &amp; Flea-Market Price Tag Calculator</title>
+    <meta
+      name="description"
+      content="Calculate profitable craft-fair and flea-market prices with booth fee splits, Square card fees, and target margins. Print cut-ready 2x3 inch price tag sheets at home."
+    />
+    <meta property="og:title" content="TagCalc — Craft-Fair &amp; Flea-Market Price Tag Calculator" />
+    <meta
+      property="og:description"
+      content="Calculate profitable craft-fair prices with booth fee splits, card processing fees, and target margins. Print cut-ready 2x3 inch price tags on US Letter paper."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="TagCalc" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="TagCalc — Craft-Fair &amp; Flea-Market Price Tag Calculator" />
+    <meta
+      name="twitter:description"
+      content="Price craft-fair inventory accurately with booth splits, card fees, and printable 2x3 inch price tag sheets."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Public+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebApplication",
+            "name": "TagCalc — Craft-Fair & Flea-Market Price Tag Calculator",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "All",
+            "description": "Calculate profitable craft-fair and flea-market prices factoring booth fees, Square card processing fees, and target net profit margins, with printable 2x3 inch price tag sheets.",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            }
+          },
+          {
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "How do I split a craft fair booth fee per item?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Divide your total booth or table fee by the estimated number of items you are bringing to the event. For example, a $75 booth fee divided across 50 items adds $1.50 in overhead to every item's base cost before calculating profit margin."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How do I factor Square's 2.6% + $0.15 fee into my prices?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Because card processors take a percentage of the final sale price rather than your cost, you cannot simply multiply cost by 2.6%. Use the gross-up formula: (Base Cost + $0.15) / (1 - 0.026 - Target Margin %) so your net profit margin remains intact after fees."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How do I print price tags at home on standard paper?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "TagCalc formats 2x3 inch price tags three across on standard 8.5x11 inch US Letter paper with 0.4 inch margins and dashed cut lines. Click Print Price Tags, choose 100% scale (Actual Size) on heavy cardstock, and trim along the dashed borders."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body class="bg-slate-50 text-slate-900 antialiased">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
