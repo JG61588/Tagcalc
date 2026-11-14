@@ -3,9 +3,9 @@ import { BoothSettings, CalculatedItem, PricingItem, RoundingMode, TagInstance }
 // Stripe Checkout / Payment Link for the $19 Lifetime Unlock
 export const STRIPE_PAYMENT_LINK = 'https://buy.stripe.com/bJe6oGgzr8ms8bu9bX6Zy00';
 
-export const PRO_BACKUP_KEY = 'TAGCALC-PRO-2026';
 export const FREE_ITEM_LIMIT = 5;
 export const FREE_TAG_LIMIT = 5;
+export const MAX_COMBINED_RATE_PERCENT = 95;
 
 export const DEFAULT_SETTINGS: BoothSettings = {
   boothFee: 75,
@@ -59,26 +59,35 @@ export function calculateBoothSplit(settings: BoothSettings): number {
 export function calculateItemPricing(item: PricingItem, settings: BoothSettings): CalculatedItem {
   const safeMaterial = Math.max(0, Number.isFinite(item.materialCost) ? item.materialCost : 0);
   const safeFlatFee = Math.max(0, Number.isFinite(settings.cardFlatFee) ? settings.cardFlatFee : 0);
-  const safeCardRate = Math.max(0, Number.isFinite(settings.cardFeePercent) ? settings.cardFeePercent : 0) / 100;
-  const safeTargetMargin = Math.max(0, Number.isFinite(settings.targetMarginPercent) ? settings.targetMarginPercent : 0) / 100;
+  const rawCardPercent = Math.max(
+    0,
+    Number.isFinite(settings.cardFeePercent) ? settings.cardFeePercent : 0
+  );
+  const rawMarginPercent = Math.max(
+    0,
+    Number.isFinite(settings.targetMarginPercent) ? settings.targetMarginPercent : 0
+  );
+
+  const cappedCardPercent = Math.min(rawCardPercent, MAX_COMBINED_RATE_PERCENT);
+  const cappedMarginPercent = Math.min(
+    rawMarginPercent,
+    MAX_COMBINED_RATE_PERCENT - cappedCardPercent
+  );
+
+  const safeCardRate = cappedCardPercent / 100;
+  const safeTargetMargin = cappedMarginPercent / 100;
 
   const boothSplit = calculateBoothSplit(settings);
   const baseCost = safeMaterial + boothSplit;
 
-  const breakEvenDenominator = 1 - safeCardRate;
-  const targetDenominator = 1 - safeCardRate - safeTargetMargin;
+  const breakEvenDenominator = Math.max(0.05, 1 - safeCardRate);
+  const targetDenominator = Math.max(0.05, 1 - safeCardRate - safeTargetMargin);
 
-  const isInvalidMath = breakEvenDenominator <= 0.001 || targetDenominator <= 0.001;
+  const isInvalidMath = false;
 
-  const breakEvenPrice =
-    breakEvenDenominator > 0.001 ? (baseCost + safeFlatFee) / breakEvenDenominator : 0;
-
-  const rawRecommendedPrice =
-    targetDenominator > 0.001 ? (baseCost + safeFlatFee) / targetDenominator : 0;
-
-  const recommendedPrice = isInvalidMath
-    ? 0
-    : roundTagPrice(rawRecommendedPrice, settings.roundingMode);
+  const breakEvenPrice = (baseCost + safeFlatFee) / breakEvenDenominator;
+  const rawRecommendedPrice = (baseCost + safeFlatFee) / targetDenominator;
+  const recommendedPrice = roundTagPrice(rawRecommendedPrice, settings.roundingMode);
 
   const cardFeeAtTagPrice =
     recommendedPrice > 0 ? recommendedPrice * safeCardRate + safeFlatFee : 0;
