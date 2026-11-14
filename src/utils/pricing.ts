@@ -1,7 +1,7 @@
 import { BoothSettings, CalculatedItem, PricingItem, RoundingMode, TagInstance } from '../types';
 
 // Stripe Checkout / Payment Link for the $19 Lifetime Unlock
-export const STRIPE_PAYMENT_LINK = 'https://stripe.com';
+export const STRIPE_PAYMENT_LINK = 'https://buy.stripe.com/bJe6oGgzr8ms8bu9bX6Zy00';
 
 export const PRO_BACKUP_KEY = 'TAGCALC-PRO-2026';
 export const FREE_ITEM_LIMIT = 5;
